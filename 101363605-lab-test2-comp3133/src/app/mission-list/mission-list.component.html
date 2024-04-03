@@ -1,0 +1,95 @@
+<br>
+<br>
+
+<div class="container">
+  
+  <div class="filter">
+    <!-- Year filter -->
+    <div class="card filter-card">
+      <div class="card-header">
+        <h3>Launch Date Filters</h3>
+      </div>
+      <div class="card-body">
+        <div class="year-buttons-grid">
+          <button *ngFor="let year of years" (click)="updateFilters('year', year)" [class.active]="isSelectedFilter('year', year) && canSelectFilter('year', year)">
+            {{ year }}
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Launch status filter -->
+    <div class="card filter-card">
+      <div class="card-header">
+        <h3>Launch Status</h3>
+      </div>
+      <div class="card-body">
+        <div class="status-buttons-grid">
+          <button (click)="updateFilters('launch', true)" [class.active]="isSelectedFilter('launch', true) && canSelectFilter('launch', true)">Successful Launch</button>
+          <button (click)="updateFilters('launch', false)" [class.active]="isSelectedFilter('launch', false) && canSelectFilter('launch', false)">Failed Launch</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Landing status filter -->
+    <div class="card filter-card">
+      <div class="card-header">
+        <h3>Landing Status</h3>
+      </div>
+      <div class="card-body">
+        <div class="status-buttons-grid">
+          <button (click)="updateFilters('landing', true)" [class.active]="isSelectedFilter('landing', true) && canSelectFilter('landing', true)">Successful Landing</button>
+          <button (click)="updateFilters('landing', false)" [class.active]="isSelectedFilter('landing', false) && canSelectFilter('landing', false)">Failed Landing</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset filter -->
+    <div class="card filter-card">
+      <div class="card-header">
+        <h3>Reset All</h3>
+      </div>
+      <div class="card-body">
+        <div class="status-buttons-grid">
+          <button (click)="resetFilter()">All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--Mission List -->
+  <div class="mission-card-container">
+    <div class="mission-card" *ngFor="let launch of filteredLaunches">
+      <a [routerLink]="['/missions', launch.mission_id]">
+        <img src="{{ launch.links.mission_patch_small }}" alt="Mission Patch" width="100" class="center-image">
+      </a>
+      <div class="mission-card-body">
+        <h3 class="mission-title">{{ launch.mission_name }}</h3>
+        <p><strong>Mission ID</strong> 
+          <span *ngIf="launch.mission_id.length > 0">
+            {{ launch.mission_id }}
+          </span>
+          <span *ngIf="launch.mission_id.length === 0">
+            --
+          </span>
+        </p>
+        <p><strong>Launch Year</strong> {{ launch.launch_year }}</p>
+        <p><strong>Launch Success</strong> {{ launch.launch_success ? 'Yes' : 'No' }}</p>
+        <p><strong>Land Success</strong> 
+          <span *ngIf="launch.rocket.first_stage.cores[0].land_success !== null">
+            {{ launch.rocket.first_stage.cores[0].land_success }}
+          </span>
+          <span *ngIf="launch.rocket.first_stage.cores[0].land_success === null">
+            No Data
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+

@@ -1,0 +1,14 @@
+<div class="container">
+  <div *ngIf="missionDetails" class="card">
+    <img [src]="missionDetails.links.mission_patch_small" alt="Mission Patch" class="center-image">
+    <div class="card-body">
+      <h3>{{ missionDetails.mission_name }}</h3>
+      <p><strong>Mission ID:</strong> {{ missionDetails.mission_id }}</p>
+      <p><strong>Launch Year:</strong> {{ missionDetails.launch_year }}</p>
+      <p><strong>Rocket Name:</strong> {{ missionDetails.rocket.rocket_name }}</p>
+      <p><strong>Rocket Type:</strong> {{ missionDetails.rocket.rocket_type }}</p>
+      <p><strong>Launch Site:</strong> {{ missionDetails.launch_site.site_name_long }}</p>
+      <p><strong>Details:</strong> {{ missionDetails.details }}</p>
+    </div>
+  </div>
+</div>
